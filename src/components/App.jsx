@@ -40,7 +40,9 @@ class App extends Component {
   }
 
   onBtnClick = () => {
-    this.setState({ isMoviesShown: true });
+    this.state.isMoviesShown
+      ? this.setState({ isMoviesShown: false })
+      : this.setState({ isMoviesShown: true });
   };
 
   onLoadMore = () => {
