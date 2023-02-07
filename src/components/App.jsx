@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+
+// ========== API ==========
+
 import fetchMovies from 'services/api';
+
+// ========== components ==========
+
 import Button from './Button/Button';
 import MoviesList from './MoviesList/MoviesList';
 import Modal from './Modal/Modal';
@@ -84,7 +90,15 @@ class App extends Component {
     const { isMoviesShown, movies, movieToDelete } = this.state;
 
     return (
-      <>
+      <div
+        style={{
+          display: 'grid',
+          gridGap: '1rem',
+          padding: '1rem',
+          maxWidth: '1024px',
+          margin: '0 auto',
+        }}
+      >
         <Button
           clickHandler={onBtnClick}
           text={isMoviesShown ? 'Hide movies' : 'Show movies'}
@@ -102,7 +116,7 @@ class App extends Component {
             <Button text="No" clickHandler={onDeleteReject} />
           </Modal>
         )}
-      </>
+      </div>
     );
   }
 }

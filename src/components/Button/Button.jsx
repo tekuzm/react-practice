@@ -1,7 +1,11 @@
+// ========== styles ==========
+
+import { Btn } from './Button.styled';
+
 const Button = ({ text, clickHandler }) => (
-  <button type="button" onClick={clickHandler}>
+  <Btn type="button" onClick={clickHandler}>
     {text}
-  </button>
+  </Btn>
 );
 
 export default Button;
