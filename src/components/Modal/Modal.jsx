@@ -1,1 +1,3 @@
-export const Modal = ({ children }) => <div>{children}</div>;
+const Modal = ({ children }) => <div>{children}</div>;
+
+export default Modal;

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import fetchMovies from 'services/api';
 import Button from './Button/Button';
 import MoviesList from './MoviesList/MoviesList';
+import Modal from './Modal/Modal';
 
 class App extends Component {
   state = {
     isMoviesShown: false,
     page: 1,
     movies: [],
+    movieToDelete: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -40,9 +42,13 @@ class App extends Component {
   }
 
   onBtnClick = () => {
-    this.state.isMoviesShown
-      ? this.setState({ isMoviesShown: false })
-      : this.setState({ isMoviesShown: true });
+    const { isMoviesShown } = this.state;
+
+    // isMoviesShown
+    //   ? this.setState({ isMoviesShown: false })
+    //   : this.setState({ isMoviesShown: true });
+
+    this.setState({ isMoviesShown: !isMoviesShown });
   };
 
   onLoadMore = () => {
@@ -50,9 +56,32 @@ class App extends Component {
     this.setState({ page: page + 1 });
   };
 
+  onDelete = id => {
+    this.setState({ movieToDelete: id });
+  };
+
+  onDeleteConfirm = () => {
+    const id = this.state.movieToDelete;
+
+    this.setState(prevState => ({
+      movies: prevState.movies.filter(movie => id !== movie.id),
+      movieToDelete: null,
+    }));
+  };
+
+  onDeleteReject = () => {
+    this.setState({ movieToDelete: null });
+  };
+
   render() {
-    const { onBtnClick, onLoadMore } = this;
-    const { isMoviesShown, movies } = this.state;
+    const {
+      onBtnClick,
+      onLoadMore,
+      onDelete,
+      onDeleteConfirm,
+      onDeleteReject,
+    } = this;
+    const { isMoviesShown, movies, movieToDelete } = this.state;
 
     return (
       <>
@@ -62,9 +91,16 @@ class App extends Component {
         />
         {movies.length > 0 && (
           <>
-            <MoviesList moviesInfo={movies} />{' '}
+            <MoviesList moviesInfo={movies} deleteMovie={onDelete} />{' '}
             <Button clickHandler={onLoadMore} text="Load more" />
           </>
+        )}
+        {movieToDelete && (
+          <Modal>
+            <p>Are you sure?</p>
+            <Button text="Yes" clickHandler={onDeleteConfirm} />
+            <Button text="No" clickHandler={onDeleteReject} />
+          </Modal>
         )}
       </>
     );
