@@ -93,10 +93,9 @@ class App extends Component {
       <div
         style={{
           display: 'grid',
-          gridGap: '1rem',
-          padding: '1rem',
-          maxWidth: '1024px',
-          margin: '0 auto',
+          gridTemplateColumns: '1fr',
+          gridGap: '16px',
+          paddingBottom: '24px',
         }}
       >
         <Button
