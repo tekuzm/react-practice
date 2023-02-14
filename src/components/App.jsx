@@ -15,7 +15,7 @@ const App = () => {
   const [isMoviesShown, setIsMovieShown] = useState(false);
   const [page, setPage] = useState(1);
   const [movieToDelete, setMovieToDelete] = useState(null);
-  const [posterUrl, setPosterUrl] = useState('');
+  const [posterUrl, setPosterUrl] = useState();
 
   useEffect(() => {
     if (isMoviesShown) {
@@ -31,6 +31,7 @@ const App = () => {
             };
           }
         );
+
         setMovies(prevMovies => [...prevMovies, ...moviesInfo]);
       });
     } else {
